@@ -186,3 +186,27 @@ if __name__ == "__main__":
     print(f"normalize_title: {normalize_title('silent hours')}")
     print(f"make_slug: {make_slug('Silent Hours')}")
     print(f"Строка отчета: {format_report_line(movies[7])}")
+
+#Этап 5. Списки
+
+def titles_sorted_by_rating(movies):
+    """Возвращает список названий фильмов, отсортированных по убыванию рейтинга."""
+    # Сортируем список фильмов по ключу 'rating' в обратном порядке.
+    sorted_movies = sorted(movies, key=lambda movie: movie["rating"], reverse=True)
+    
+    # Собираем только названия в новый список
+    return [movie["title"] for movie in sorted_movies]
+
+
+def top_n_by_rating(movies, n=3):
+    """Возвращает список из n кортежей (title, rating) — топ по рейтингу."""
+    sorted_movies = sorted(movies, key=lambda movie: movie["rating"], reverse=True)
+    
+    # Берем первые n элементов с помощью среза и превращаем каждый в кортеж
+    return [(movie["title"], movie["rating"]) for movie in sorted_movies[:n]]
+if __name__ == "__main__":
+    print("\n=== Этап 5: Списки ===")
+    print("Все фильмы по убыванию рейтинга:")
+    print(titles_sorted_by_rating(movies))
+    print("\nТоп-3 по рейтингу:")
+    print(top_n_by_rating(movies, 3))
