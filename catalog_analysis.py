@@ -301,3 +301,23 @@ if __name__ == "__main__":
     
     print("\nЖанры только из movies[5:6], которых нет в movies[:5]:")
     print(genres_only_in_one(movies[5:6], movies[:5]))
+
+#Этап 8. Итераторы и генераторы
+
+def iter_high_rated(movies, min_rating=8.0):
+    """Генератор, который лениво отдает фильмы с рейтингом не ниже min_rating."""
+    for movie in movies:
+        if movie["rating"] >= min_rating:
+            yield movie
+
+def total_duration_high_rated(movies):
+    """Возвращает суммарную длительность фильмов с рейтингом > 7 через генераторное выражение."""
+    # Используем генераторное выражение (без квадратных скобок) внутри sum()
+    return sum(m["duration_min"] for m in movies if m["rating"] > 7)
+if __name__ == "__main__":
+    print("\n=== Этап 8: Итераторы и генераторы ===")
+    print("Фильмы с рейтингом >= 8.0:")
+    for movie in iter_high_rated(movies):
+        print(format_report_line(movie))
+    print("\nСуммарная длительность фильмов с рейтингом > 7:")
+    print(total_duration_high_rated(movies))
