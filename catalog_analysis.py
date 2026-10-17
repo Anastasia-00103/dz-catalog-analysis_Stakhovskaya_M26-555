@@ -103,3 +103,51 @@ if __name__ == "__main__":
     print(f"Год 2020: {decade_label(2020)}")
     print(f"Год 2017: {decade_label(2017)}")
     print(f"Год 2014: {decade_label(2014)}")
+
+#Этап 3. Циклы
+def print_non_comedy(movies):
+    """Выводит названия фильмов, которые НЕ относятся к жанру comedy, используя for и continue."""
+    print("Фильмы не в жанре 'comedy':")
+    for movie in movies:
+        if "comedy" in movie["genres"]:
+            continue  # Пропускаем комедии
+        print(f" - {movie['title']}")
+
+
+def find_first_masterpiece(movies):
+    """Находит первый фильм с рейтингом > 9.0, используя while и break."""
+    index = 0
+    found = False
+    
+    while index < len(movies):
+        if movies[index]["rating"] > 9.0:
+            print(f"Первый шедевр (рейтинг > 9.0): {movies[index]['title']} ({movies[index]['rating']})")
+            found = True
+            break  # Прерываем цикл, так как нашли
+        index += 1
+    
+    if not found:
+        # Эта ветка сработает, если мы прошли весь цикл и не наткнулись на break
+        print("Шедевров не найдено")
+
+
+def count_long_movies(movies, threshold=120):
+    """Считает количество фильмов длиннее threshold минут через for с накоплением."""
+    count = 0
+    for movie in movies:
+        if movie["duration_min"] > threshold:
+            count += 1
+    return count
+if __name__ == "__main__":
+    print("\n=== Этап 3: Циклы ===")
+    # 1. Фильмы не-комедии
+    print_non_comedy(movies)
+    # 2. Поиск шедевра
+    print("\nПоиск шедевра в каталоге:")
+    find_first_masterpiece(movies)
+        # Проверим случай, когда шедевра нет (передадим пустой список)
+    print("\nПоиск шедевра в пустом каталоге:")
+    find_first_masterpiece([])
+        # 3. Подсчет длинных фильмов
+    long_movies_count = count_long_movies(movies)
+    print(f"\nКоличество фильмов длиннее 120 минут: {long_movies_count}")
