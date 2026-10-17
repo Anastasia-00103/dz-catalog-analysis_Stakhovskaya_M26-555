@@ -210,3 +210,49 @@ if __name__ == "__main__":
     print(titles_sorted_by_rating(movies))
     print("\nТоп-3 по рейтингу:")
     print(top_n_by_rating(movies, 3))
+
+#Этап 6. Словари
+
+def count_by_genre(movies):
+    """Возвращает словарь {жанр: количество фильмов}, используя dict.get()."""
+    genre_counts = {}
+    
+    for movie in movies:
+        # В словаре movies жанры хранятся во множестве (set)
+        for genre in movie["genres"]:
+            # Если жанра нет, get вернет 0, и мы прибавим 1. Иначе прибавим 1 к текущему значению.
+            genre_counts[genre] = genre_counts.get(genre, 0) + 1
+            
+    return genre_counts
+
+
+def actor_filmography(movies):
+    """Возвращает словарь {актер: [список названий фильмов]}."""
+    filmography = {}
+    
+    for movie in movies:
+        for actor in movie["actors"]:
+            if actor not in filmography:
+                filmography[actor] = []
+            filmography[actor].append(movie["title"])      
+    return filmography
+
+
+def above_average_movies(movies):
+    """Возвращает словарь {title: rating} для фильмов с рейтингом выше среднего, через dict comprehension."""
+    # Получаем среднюю оценку каталога с помощью функции из Этапа 1
+    avg = average_rating(movies)
+    
+    # Генератор словаря (dict comprehension)
+    return {movie["title"]: movie["rating"] for movie in movies if movie["rating"] > avg}
+if __name__ == "__main__":
+    print("\n=== Этап 6: Словари ===")
+    print("Количество фильмов по жанрам:")
+    print(count_by_genre(movies))
+    print("\nФильмография актеров:")
+    # Выведем для примера пару актеров
+    actor_dict = actor_filmography(movies)
+    print(f"O. Isaac: {actor_dict.get('O. Isaac')}")
+    print(f"A. Novak: {actor_dict.get('A. Novak')}")
+    print("\nФильмы с рейтингом выше среднего (средняя 7.2):")
+    print(above_average_movies(movies))
