@@ -1,4 +1,5 @@
 import math
+
 movies = [
     {"title": "The Dune Chronicles", "year": 2021, "genres": {"sci-fi", "drama"},
      "rating": 8.6, "duration_min": 155, "actors": ["T. Chalamet", "R. Ferguson", "O. Isaac"]},
@@ -164,7 +165,7 @@ def make_slug(title):
 def format_report_line(movie):
     """Возвращает единую строку с описанием фильма."""
     title = normalize_title(movie["title"]) 
-    sorted_genres = sorted(list(movie["genres"]))
+    sorted_genres = sorted(movie["genres"])
     genres_str = ", ".join(sorted_genres)
     duration_str = duration_in_hours(movie["duration_min"])
     return f'"{title}" ({movie["year"]}) — {movie["rating"]}/10, {duration_str}, жанры: {genres_str}'
@@ -341,7 +342,7 @@ def build_report(movies):
         
     # 4. Все жанры каталога (через запятую, по алфавиту)
     print("\nВсе жанры каталога:", end=" ")
-    all_unique_genres = sorted(list(all_genres(movies)))
+    all_unique_genres = sorted(all_genres(movies))
     print(", ".join(all_unique_genres))
 if __name__ == "__main__":
     build_report(movies)
