@@ -151,3 +151,38 @@ if __name__ == "__main__":
         # 3. Подсчет длинных фильмов
     long_movies_count = count_long_movies(movies)
     print(f"\nКоличество фильмов длиннее 120 минут: {long_movies_count}")
+
+#Этап 4. Строки
+def normalize_title(title):
+    """Приводит строку к Title Case без использования str.title()."""
+    words = title.split()
+    normalized_words = []
+    
+    for word in words:
+        if word:  # Проверка на случай лишних пробелов
+            # Делаем первую букву заглавной, остальные оставляем как есть (или можно .lower())
+            norm_word = word[0].upper() + word[1:].lower()
+            normalized_words.append(norm_word)
+            
+    return " ".join(normalized_words)
+
+
+def make_slug(title):
+    """Превращает название в слаг (например, 'silent-hours')."""
+    # Сначала нормализуем (на всякий случай), затем в нижний регистр и меняем пробелы на дефисы
+    norm_title = normalize_title(title)
+    return norm_title.lower().replace(" ", "-")
+
+
+def format_report_line(movie):
+    """Возвращает единую строку с описанием фильма."""
+    title = normalize_title(movie["title"]) 
+    sorted_genres = sorted(list(movie["genres"]))
+    genres_str = ", ".join(sorted_genres)
+    duration_str = duration_in_hours(movie["duration_min"])
+    return f'"{title}" ({movie["year"]}) — {movie["rating"]}/10, {duration_str}, жанры: {genres_str}'
+if __name__ == "__main__":
+    print("\n=== Этап 4: Строки ===")
+    print(f"normalize_title: {normalize_title('silent hours')}")
+    print(f"make_slug: {make_slug('Silent Hours')}")
+    print(f"Строка отчета: {format_report_line(movies[7])}")
