@@ -21,6 +21,7 @@ movies = [
     {"title": "Red Harbor", "year": 2018, "genres": {"action", "thriller"},
      "rating": 7.3, "duration_min": 129, "actors": ["P. Diaz", "T. Chalamet"]},
 ] 
+#Этап 1. Разминка: переменные, числа, math
 def average_rating(movies):
     """Возвращает среднюю оценку по каталогу, округленную до одного знака."""
     if not movies:
@@ -60,4 +61,45 @@ if __name__ == "__main__":
     
     print(f"Средняя оценка каталога: {average_rating(movies)}")
     print(f"Статистика возрастов (старый, новый, средний): {catalog_age_stats(movies)}")
-    print(f"Длительность 'The Dune Chronicles' (155 мин): {duration_in_hours(movies[0]['duration_min'])}") 
+    print(f"Длительность 'The Dune Chronicles' (155 мин): {duration_in_hours(movies[0]['duration_min'])}")
+
+#Этап 2. Условия и match
+def rating_tier(rating):
+    """Возвращает категорию фильма по оценке, используя if/elif и тернарный оператор."""
+    if rating >= 9:
+        tier = "шедевр"
+    elif rating >= 7:
+        # Тернарный оператор здесь: если >= 8.9, то "хорошо (топ)", иначе просто "хорошо"
+        # (это просто для выполнения условия задачи, на логику не влияет)
+        tier = "хорошо (топ)" if rating >= 8.9 else "хорошо"
+    elif rating >= 5:
+        tier = "средне"
+    else:
+        tier = "слабо"
+        
+    return tier
+
+
+def decade_label(year):
+    """Возвращает метку десятилетия с использованием match и case _ if."""
+    match year:
+        case y if y > 2020:
+            return "новые"
+        case y if 2015 <= y <= 2020:
+            return "недавние"
+        case y if y < 2015:
+            return "старые"
+        case _:
+            return "неизвестно" 
+
+if __name__ == "__main__":
+    print("\n=== Этап 2: Условия и match ===")
+    print(f"Оценка 9.5: {rating_tier(9.5)}")
+    print(f"Оценка 7.5: {rating_tier(7.5)}")
+    print(f"Оценка 6.0: {rating_tier(6.0)}")
+    print(f"Оценка 4.2: {rating_tier(4.2)}")
+    
+    print(f"Год 2024: {decade_label(2024)}")
+    print(f"Год 2020: {decade_label(2020)}")
+    print(f"Год 2017: {decade_label(2017)}")
+    print(f"Год 2014: {decade_label(2014)}")
