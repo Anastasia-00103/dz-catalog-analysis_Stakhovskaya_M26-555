@@ -256,3 +256,48 @@ if __name__ == "__main__":
     print(f"A. Novak: {actor_dict.get('A. Novak')}")
     print("\nФильмы с рейтингом выше среднего (средняя 7.2):")
     print(above_average_movies(movies))
+
+#Этап 7. Множества
+
+def all_genres(movies):
+    """Возвращает множество всех уникальных жанров каталога."""
+    genres = set()
+    for movie in movies:
+        # Используем оператор объединения
+        genres |= movie["genres"]
+    return genres
+
+
+def common_actors(movie1, movie2):
+    """Возвращает множество актеров, снимавшихся в обоих фильмах."""
+    # Превращаем списки актеров во множества и берем пересечение
+    actors1 = set(movie1["actors"])
+    actors2 = set(movie2["actors"])
+    return actors1 & actors2
+
+
+def genres_only_in_one(movies_a, movies_b):
+    """Возвращает жанры, встречающиеся в movies_a, но не в movies_b."""
+    # Собираем все жанры для первого списка фильмов
+    genres_a = set()
+    for movie in movies_a:
+        genres_a |= movie["genres"]
+        
+    # Собираем все жанры для второго списка фильмов
+    genres_b = set()
+    for movie in movies_b:
+        genres_b |= movie["genres"]
+        
+    # Возвращаем разность множеств
+    return genres_a - genres_b
+if __name__ == "__main__":
+    print("\n=== Этап 7: Множества ===")
+    
+    print("Все уникальные жанры в каталоге:")
+    print(all_genres(movies))
+    
+    print("\nОбщие актеры в movies[0] и movies[3]:")
+    print(common_actors(movies[0], movies[3]))
+    
+    print("\nЖанры только из movies[5:6], которых нет в movies[:5]:")
+    print(genres_only_in_one(movies[5:6], movies[:5]))
